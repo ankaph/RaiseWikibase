@@ -51,7 +51,7 @@ def snak(datatype='', value='', prop='', snaktype='value'):
     :param datatype: a one of 18 datatypes in the Wikibase data model
     :type datatype: str
     :param value: datavalue
-    :type value: str for datatype in ['', 'string', 'math', 'external-id', 
+    :type value: str for datatype in ['', 'string', 'math', 'external-id',
                                       'url', 'commonsMedia', 'localMedia',
                                       'geo-shape', 'musical-notation', 'tabular-data',
                                       'wikibase-item', 'wikibase-property',
@@ -301,4 +301,6 @@ datatypes = {'http://wikiba.se/ontology#CommonsMedia': 'commonsMedia',
              'http://wikiba.se/ontology#WikibaseForm': 'form',
              'http://wikiba.se/ontology#WikibaseSense': 'sense',
              'http://wikiba.se/ontology#MusicalNotation': 'musical-notation',
-             'http://wikiba.se/ontology#WikibaseProperty': 'wikibase-property'}
+             'http://wikiba.se/ontology#WikibaseProperty': 'wikibase-property',
+             'http://wikiba.se/ontology#EntitySchema': 'entity-schema',
+             }
