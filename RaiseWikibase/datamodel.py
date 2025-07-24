@@ -301,4 +301,6 @@ datatypes = {'http://wikiba.se/ontology#CommonsMedia': 'commonsMedia',
              'http://wikiba.se/ontology#WikibaseForm': 'form',
              'http://wikiba.se/ontology#WikibaseSense': 'sense',
              'http://wikiba.se/ontology#MusicalNotation': 'musical-notation',
-             'http://wikiba.se/ontology#WikibaseProperty': 'wikibase-property'}
+             'http://wikiba.se/ontology#WikibaseProperty': 'wikibase-property',
+             'https://wikiba.se/ontology##EntitySchema': 'entity-schema'
+             }
