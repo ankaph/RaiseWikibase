@@ -372,7 +372,7 @@ class DBConnection:
         else:
             raise ValueError('{} is not a valid "new" parameter. Use "True" or "False".'.format(new))
         cur.execute("INSERT INTO text VALUES(%s,%s,'utf-8')", [text_id, text])
-        cur.execute("REPLACE INTO page VALUES(%s,%s,%s,'',0,%s,rand(),%s,%s,%s,%s,%s,NULL)",
+        cur.execute("REPLACE INTO page VALUES(%s,%s,%s,0,%s,rand(),%s,%s,%s,%s,%s,NULL)",
                     [page_id, namespace, page_title, int(new), timenow, timenow, page_latest, len_data, content_model])
         cur.execute("INSERT INTO comment VALUES(%s,%s,%s,NULL)",
                     [comment_id, chash, comment])
