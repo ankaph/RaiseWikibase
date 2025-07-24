@@ -416,3 +416,31 @@ class DBConnection:
                         wbtl_id = self.get_wbtl_id(cur=cur, wbtl_type_id=wby_id, wbxl_language=lang, wbx_text=wbx_text, wbxl_id=wbxl_id) # wbt_term_in_lang
                         cur.execute("INSERT IGNORE INTO wbt_property_terms VALUES(NULL,%s,%s)", [new_eid, wbtl_id])
         cur.close()
+
+    def find_item_id(self, name):
+        """Searches item by name or by id"""
+        cur = self.conn.cursor()
+        where_clause = """wbx_text = '{}'""".format(name)
+        q = "SELECT wbit_item_id as id, wbx_text as text FROM wbt_item_terms LEFT JOIN wbt_term_in_lang ON wbit_term_in_lang_id = wbtl_id LEFT JOIN wbt_text_in_lang ON wbtl_text_in_lang_id = wbxl_id LEFT JOIN wbt_text ON wbxl_text_id = wbx_id WHERE wbtl_type_id = 1 AND " + where_clause
+        try:
+            cur.execute(q)
+            item_id = f'Q{cur.fetchone()[0]}'
+        except Exception:
+            item_id = None
+        cur.close()
+        
+        return item_id
+
+    def find_property_id(self, name):
+        """Searches property by name or by id"""
+        cur = self.conn.cursor()
+        where_clause = """wbx_text = '{}'""".format(name)
+        q = "SELECT wbpt_property_id as id, wbx_text as text FROM wbt_property_terms LEFT JOIN wbt_term_in_lang ON wbpt_term_in_lang_id = wbtl_id LEFT JOIN wbt_text_in_lang ON wbtl_text_in_lang_id = wbxl_id LEFT JOIN wbt_text ON wbxl_text_id = wbx_id WHERE wbtl_type_id = 1 AND " + where_clause
+        try:
+            cur.execute(q)
+            property_id = f'P{cur.fetchone()[0]}'
+        except Exception:
+            property_id = None
+        cur.close()
+
+        return property_id
