@@ -86,7 +86,8 @@ def page(connection=None, content_model=None, namespace=None, text=None, page_ti
     # For structured data update counters in 'wb_id_counters'-table.
     if new and (content_model in ['wikibase-item', 'wikibase-property', 'wikibase-lexeme']):
         connection.update_wb_id_counters(new_eid=new_eid, content_model=content_model)
-
+    
+    return json.loads(text)
 
 def batch(content_model=None, texts=None, namespace=None, page_title=None, new=True):
     """
@@ -103,9 +104,11 @@ def batch(content_model=None, texts=None, namespace=None, page_title=None, new=T
         page_title = [None for pt in range(0,len(texts))]
     try:
         connection = DBConnection()
+        new_texts = []
+
         for ind, (text, pt) in enumerate(tqdm(zip(texts, page_title))):
-            page(connection=connection, content_model=content_model,
-                 namespace=namespace, text=text, page_title=pt, new=new)
+            new_texts.append(page(connection=connection, content_model=content_model,
+                 namespace=namespace, text=text, page_title=pt, new=new))
         connection.conn.commit()
         connection.conn.close()
     except connection.conn.error() as error:
@@ -117,6 +120,7 @@ def batch(content_model=None, texts=None, namespace=None, page_title=None, new=T
         if connection.conn.open:
             connection.conn.close()
 
+        return new_texts
 
 def create_bot(bot_name='bot'):
     """
