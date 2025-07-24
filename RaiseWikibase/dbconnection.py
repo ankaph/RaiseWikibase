@@ -40,7 +40,7 @@ class DBConnection:
         """Helper function for retrieving primary admin user id."""
         cur = self.conn.cursor()
         cur.execute("SELECT user_id FROM user WHERE user_name = '%s'" \
-                    % self.wikibase_env["MW_ADMIN_NAME"])
+                    % self.wikibase_env["MW_ADMIN_NAME"].capitalize())
         out = cur.fetchone()[0]
         cur.close()
         return out
