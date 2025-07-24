@@ -374,14 +374,10 @@ class DBConnection:
         cur.execute("INSERT INTO text VALUES(%s,%s,'utf-8')", [text_id, text])
         cur.execute("REPLACE INTO page VALUES(%s,%s,%s,'',0,%s,rand(),%s,%s,%s,%s,%s,NULL)",
                     [page_id, namespace, page_title, int(new), timenow, timenow, page_latest, len_data, content_model])
-        cur.execute("INSERT INTO revision VALUES(NULL,%s,0,0,%s,0,0,%s,%s,%s)",
-                    [page_id, timenow, len_data, rev_parent_id, sha1hash])
         cur.execute("INSERT INTO comment VALUES(%s,%s,%s,NULL)",
                     [comment_id, chash, comment])
-        cur.execute("INSERT INTO revision_comment_temp VALUES (%s,%s)",
-                    [rev_id, comment_id])
-        cur.execute("INSERT INTO revision_actor_temp VALUES(%s,1,%s,%s)",
-                    [rev_id, timenow, page_id])
+        cur.execute("INSERT INTO revision VALUES(%s,%s,%s,1,%s,0,0,%s,%s,%s)",
+                    [rev_id, page_id, comment_id, timenow, len_data, rev_parent_id, sha1hash])
         cur.execute("INSERT INTO content VALUES(%s,%s,%s,%s,%s)",
                     [content_id, len_data, sha1hash, model_id, 'tt:' + str(text_id)])
         cur.execute("INSERT INTO slots VALUES(%s,1,%s,%s)",
