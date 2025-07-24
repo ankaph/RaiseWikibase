@@ -192,9 +192,9 @@ class DBConnection:
         cur = self.conn.cursor()
         q = "SELECT max(rev_id) FROM revision"
         cur.execute(q)
-        page_id = cur.fetchone()[0]
+        rev_id = cur.fetchone()[0]
         cur.close()
-        return page_id
+        return rev_id
 
     def get_comment_id(self):
         """Returns the last comment_id (int) in comment-table"""
