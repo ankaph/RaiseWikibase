@@ -186,11 +186,20 @@ def claim(prop='', mainsnak=snak(), qualifiers=[], references=[]):
     :return: a dictionary with a claim
     :rtype: dict
     """
+    
+    formatted_qualifiers = {}
+
+    for qualifier in qualifiers:
+        if qualifier['property'] in formatted_qualifiers.keys():
+            formatted_qualifiers[qualifier['property']].append(qualifier)
+        else:
+            formatted_qualifiers[qualifier['property']] = [qualifier]
+
     return {prop: [{'mainsnak': {**mainsnak, **{'hash': str(uuid.uuid4())}},
                     'type': 'statement',
                     'rank': 'normal',
-                    'qualifiers': {prop: qualifiers},
-                    'qualifiers-order': [prop],
+                    'qualifiers': formatted_qualifiers,
+                    'qualifiers-order': list(formatted_qualifiers.keys()),
                     'references': [{'snaks': {prop: references}, 'snaks-order': [prop]}],
                     'id': ''}]}
 
