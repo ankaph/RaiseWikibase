@@ -385,7 +385,7 @@ class DBConnection:
         cur.execute("INSERT INTO content VALUES(%s,%s,%s,%s,%s)",
                     [content_id, len_data, sha1hash, model_id, 'tt:' + str(text_id)])
         cur.execute("INSERT INTO slots VALUES(%s,1,%s,%s)",
-                    [text_id, content_id, text_id])
+                    [rev_id, content_id, text_id])
         cur.execute("INSERT INTO recentchanges VALUES (NULL,%s,1,%s,%s,%s,0,0,%s,%s,%s,%s,%s,%s,2,%s,%s,%s,0,0,NULL,'','')",
                     [timenow, namespace, page_title, comment_id, int(new), page_id, rev_id, rc_last_oldid, rc_type, rc_source, ip, rc_old_len, len_data])
         cur.close()
