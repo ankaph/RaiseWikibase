@@ -10,7 +10,7 @@ def docker_names():
     if names:
         names = [s.decode('ascii').replace('\n', '') for s in names]
         mysql = [k for k in names if ('_mysql_' in k or '-mysql-' in k)][0]
-        wikibase = [k for k in names if ('_wikibase_' in k or '-wikibase-' in k)][0]
+        wikibase = [k for k in names if ('_wikibase_' in k or '-wikibase-' in k) and ('jobrunner' not in k)][0]
         output = [mysql, wikibase]
     else:
         output = None
