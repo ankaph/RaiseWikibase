@@ -71,3 +71,15 @@ def get_wikidata_properties(language='en'):
 
     return output
 
+def is_same_snak(snak1, snak2):
+    comp_keys = ['snaktype', 'property', 'datavalue', 'datatype']
+    return all(snak1.get(key) == snak2.get(key) for key in comp_keys)
+
+def is_same_claim(claim1, claim2):
+    comp_keys = ['type', 'rank', 'qualifiers']
+
+    return is_same_snak(claim1['mainsnak'], claim2['mainsnak']) and \
+        all(claim1.get(key) == claim2.get(key) for key in comp_keys)
+
+def claim_exists(claim, claims):
+    return any(is_same_claim(claim, old_claim) for old_claim in claims)
